@@ -1,0 +1,8 @@
+---
+const { text = "Making useful things for curious people." } = Astro.props;
+---
+
+<span data-typed-text={text}>{text}</span>
+<script>
+  import "../scripts/typed.js";
+</script>

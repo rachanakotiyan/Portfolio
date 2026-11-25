@@ -1,0 +1,10 @@
+---
+import { site } from "../data/site";
+---
+
+<header class="site-header">
+  <a class="wordmark" href="/" aria-label={`${site.name} home`}>~/{site.name.toLowerCase().replaceAll(" ", "")}</a>
+  <nav class="nav-links" aria-label="Main navigation">
+    {site.nav.map((item) => <a href={item.href}>~/{item.label}</a>)}
+  </nav>
+</header>

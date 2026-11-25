@@ -1,0 +1,19 @@
+---
+import Base from "../layouts/Base.astro";
+import { site } from "../data/site";
+---
+
+<Base title={`Contact — ${site.name}`}>
+  <section class="page">
+    <p class="eyebrow">~/contact</p>
+    <h1>Have a good one in mind?</h1>
+    <p class="hero-copy">For collaborations, questions, or a simple hello, reach me by email.</p>
+    <p><a href={`mailto:${site.email}`}>{site.email} →</a></p>
+    <div class="divider" aria-hidden="true">{"=".repeat(80)}</div>
+    <p>
+      {site.links.map((link, index) => (
+        <>{index > 0 && " / "}<a href={link.href} target="_blank" rel="noreferrer">{link.label}</a></>
+      ))}
+    </p>
+  </section>
+</Base>

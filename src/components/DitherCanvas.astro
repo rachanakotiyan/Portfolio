@@ -1,0 +1,8 @@
+---
+const { src = "/images/hero.svg", alt = "Dithered portfolio artwork" } = Astro.props;
+---
+
+<canvas class="hero-art" role="img" aria-label={alt} data-dither-canvas data-src={src}></canvas>
+<script>
+  import "../scripts/dither.js";
+</script>

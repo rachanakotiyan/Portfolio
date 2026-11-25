@@ -1,0 +1,7 @@
+---
+const { label = "" } = Astro.props;
+---
+
+<div class="divider" role="separator" aria-label={label || "Section divider"}>
+  {label ? `--- ${label} ` : ""}{"=".repeat(80)}
+</div>

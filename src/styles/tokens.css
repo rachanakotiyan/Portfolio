@@ -1,0 +1,13 @@
+:root {
+  color-scheme: light;
+  --paper: #f2efe8;
+  --paper-dark: #e7e2d8;
+  --ink: #23231f;
+  --muted: #77766d;
+  --line: #c9c5bb;
+  --accent: #c34d32;
+  --mono: "IBM Plex Mono", "SFMono-Regular", Consolas, monospace;
+  --serif: Georgia, "Times New Roman", serif;
+  --space: clamp(1.25rem, 4vw, 4rem);
+  --content: 72rem;
+}

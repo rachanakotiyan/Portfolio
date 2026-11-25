@@ -1,0 +1,6 @@
+---
+const { label, status } = Astro.props;
+const value = status ?? label;
+---
+
+<span class="tag">{value}</span>

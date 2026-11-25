@@ -1,0 +1,12 @@
+---
+import updates from "../../data/updates.json";
+---
+
+<section class="lab-card" aria-labelledby="updates-heading">
+  <h2 id="updates-heading">Recent updates</h2>
+  <ul class="post-list">
+    {updates.map((update) => (
+      <li><time datetime={update.date}>{new Date(`${update.date}T00:00:00`).toLocaleDateString("en", { dateStyle: "medium" })}</time>{update.text}</li>
+    ))}
+  </ul>
+</section>

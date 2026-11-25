@@ -1,0 +1,22 @@
+<section class="lab-card" aria-labelledby="now-playing-heading">
+  <h2 id="now-playing-heading">Now playing</h2>
+  <p data-now-playing>Checking the record player…</p>
+  <script>
+    const target = document.querySelector("[data-now-playing]");
+    if (target) {
+      fetch("/api/now-playing")
+        .then((response) => {
+          if (!response.ok) throw new Error("Now playing request failed");
+          return response.json();
+        })
+        .then((data) => {
+          target.textContent = data.track
+            ? `${data.track} — ${data.artist}${data.nowPlaying ? " (now playing)" : ""}`
+            : "Nothing on the record player right now.";
+        })
+        .catch(() => {
+          target.textContent = "Now playing is not configured yet.";
+        });
+    }
+  </script>
+</section>

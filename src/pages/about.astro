@@ -1,0 +1,16 @@
+---
+import Base from "../layouts/Base.astro";
+import { site } from "../data/site";
+---
+
+<Base title={`About — ${site.name}`}>
+  <article class="page">
+    <p class="eyebrow">~/about</p>
+    <h1>A little about me.</h1>
+    <p class="hero-copy">I’m a designer and developer interested in the useful, the playful, and the things that make daily life a little better.</p>
+    <div class="divider" aria-hidden="true">{"=".repeat(80)}</div>
+    <h2>How I work</h2>
+    <p>I like clear questions, thoughtful details, and making things that last. This is a place to share a few experiments and projects along the way.</p>
+    <p><a href="/resume.pdf">View résumé →</a></p>
+  </article>
+</Base>

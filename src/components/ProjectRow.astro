@@ -1,0 +1,21 @@
+---
+import Tag from "./Tag.astro";
+import type { CollectionEntry } from "astro:content";
+
+interface Props {
+  project: CollectionEntry<"projects">;
+  href: string;
+}
+
+const { project, href } = Astro.props;
+---
+
+<article class="project-row">
+  <h2><a href={href}>{project.data.title}</a></h2>
+  <p>{project.data.description}</p>
+  <div class="project-meta">
+    <Tag status={project.data.status} />
+    {project.data.tags.map((tag) => <Tag label={tag} />)}
+    <span class="meta">{project.data.date.getFullYear()}</span>
+  </div>
+</article>

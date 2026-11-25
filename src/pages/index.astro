@@ -1,0 +1,25 @@
+---
+import Base from "../layouts/Base.astro";
+import Divider from "../components/Divider.astro";
+import DitherCanvas from "../components/DitherCanvas.astro";
+import TypedText from "../components/TypedText.astro";
+import ProjectRow from "../components/ProjectRow.astro";
+import { getCollection } from "astro:content";
+import { site } from "../data/site";
+
+const projects = (await getCollection("projects")).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf()).slice(0, 3);
+---
+
+<Base title={`${site.name} — ${site.role}`} description={site.tagline}>
+  <section class="hero">
+    <p class="eyebrow">{site.location} / available for select projects</p>
+    <h1>{site.name}<br /><span class="hero-copy"><TypedText text={site.tagline} /></span></h1>
+    <DitherCanvas />
+    <p><a href="/projects">Explore selected work ↓</a></p>
+  </section>
+  <Divider label="Selected work" />
+  <section aria-label="Selected projects">
+    {projects.map((project) => <ProjectRow project={project} href={`/projects/${project.id}`} />)}
+    <p><a href="/projects">All projects →</a></p>
+  </section>
+</Base>

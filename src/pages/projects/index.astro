@@ -1,0 +1,19 @@
+---
+import Base from "../../layouts/Base.astro";
+import ProjectRow from "../../components/ProjectRow.astro";
+import { getCollection } from "astro:content";
+import { site } from "../../data/site";
+
+const projects = (await getCollection("projects")).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+---
+
+<Base title={`Projects — ${site.name}`}>
+  <section class="page">
+    <div class="page-intro">
+      <p class="eyebrow">~/projects</p>
+      <h1>A directory of things.</h1>
+      <p>Selected projects, experiments, and collaborations.</p>
+    </div>
+    {projects.map((project) => <ProjectRow project={project} href={`/projects/${project.id}`} />)}
+  </section>
+</Base>

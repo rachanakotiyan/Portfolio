@@ -1,0 +1,9 @@
+---
+import { site } from "../data/site";
+---
+
+<footer class="site-footer">
+  <span>© {new Date().getFullYear()} {site.name}</span>
+  <span>Made slowly, with care.</span>
+  <a href={`mailto:${site.email}`}>{site.email}</a>
+</footer>
