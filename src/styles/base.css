@@ -2,8 +2,19 @@
   box-sizing: border-box;
 }
 
+/* Quick fade between pages (cross-document view transitions).
+   Browsers without support just navigate normally. */
+@view-transition {
+  navigation: auto;
+}
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 0.18s;
+}
+
 html {
-  background: var(--paper);
+  background: var(--bg);
   scroll-behavior: smooth;
 }
 
@@ -12,7 +23,7 @@ body {
   min-height: 100vh;
   margin: 0 auto;
   padding: 0 var(--space);
-  color: var(--ink);
+  color: var(--text);
   font-family: var(--mono);
   font-size: 0.9rem;
   line-height: 1.7;
@@ -22,11 +33,20 @@ a {
   color: inherit;
   text-decoration-thickness: 1px;
   text-underline-offset: 0.25em;
+  transition: color 0.2s, text-shadow 0.2s;
 }
 
+/* soft lilac glow on hover and keyboard focus */
 a:hover,
 a:focus-visible {
-  color: var(--accent);
+  color: var(--lilac);
+  text-shadow: var(--glow);
+}
+
+a:focus-visible,
+button:focus-visible {
+  outline: 1px solid var(--lilac);
+  outline-offset: 4px;
 }
 
 button,
@@ -36,8 +56,8 @@ textarea {
 }
 
 ::selection {
-  color: var(--paper);
-  background: var(--accent);
+  color: var(--bg);
+  background: var(--lilac);
 }
 
 h1,
@@ -48,20 +68,20 @@ p {
 }
 
 h1,
-h2 {
-  font-family: var(--serif);
-  font-weight: 400;
-  line-height: 1.1;
+h2,
+h3 {
+  font-weight: 500;
+  line-height: 1.15;
 }
 
 h1 {
-  font-size: clamp(3rem, 10vw, 7rem);
-  letter-spacing: -0.06em;
+  font-size: clamp(2.2rem, 7vw, 4.5rem);
+  letter-spacing: -0.04em;
 }
 
 h2 {
-  font-size: clamp(2rem, 5vw, 3.5rem);
-  letter-spacing: -0.04em;
+  font-size: clamp(1.5rem, 4vw, 2.4rem);
+  letter-spacing: -0.03em;
 }
 
 img {
@@ -82,12 +102,11 @@ img {
 }
 
 .page-intro {
-  max-width: 44rem;
+  max-width: var(--measure);
   margin-bottom: 4rem;
 }
 
 .page-intro p {
-  max-width: 38rem;
   color: var(--muted);
 }
 
@@ -99,5 +118,11 @@ img {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+  }
+
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
   }
 }

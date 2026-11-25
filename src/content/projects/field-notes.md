@@ -3,7 +3,14 @@ title: Field Notes
 description: A small, thoughtful space for collecting observations from everyday walks.
 date: 2025-02-12
 status: live
+featured: true
+role: Design and front-end
+stack:
+  - Astro
+  - TypeScript
+  - CSS
 url: https://example.com
+repo: https://github.com/
 tags:
   - Design
   - Web

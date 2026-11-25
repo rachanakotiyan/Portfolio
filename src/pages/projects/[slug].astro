@@ -1,7 +1,9 @@
 ---
 import Base from "../../layouts/Base.astro";
-import { getCollection, render } from "astro:content";
+import Divider from "../../components/Divider.astro";
 import Tag from "../../components/Tag.astro";
+import { getCollection, render } from "astro:content";
+import { site } from "../../data/site";
 
 export async function getStaticPaths() {
   return (await getCollection("projects")).map((project) => ({ params: { slug: project.id }, props: { project } }));
@@ -9,16 +11,35 @@ export async function getStaticPaths() {
 
 const { project } = Astro.props;
 const { Content } = await render(project);
+const { title, description, date, status, role, stack, url, repo } = project.data;
 ---
 
-<Base title={`${project.data.title} — Projects`} description={project.data.description}>
-  <article class="page prose">
-    <p class="eyebrow"><a href="/projects">~/projects</a> / {project.data.date.getFullYear()}</p>
-    <h1>{project.data.title}</h1>
-    <p class="hero-copy">{project.data.description}</p>
-    <div>{project.data.tags.map((tag) => <Tag label={tag} />)}<Tag status={project.data.status} /></div>
-    <div class="divider" aria-hidden="true">{"=".repeat(80)}</div>
-    <Content />
-    {project.data.url && <p><a href={project.data.url} target="_blank" rel="noreferrer">Visit project →</a></p>}
-  </article>
+<Base title={`${title} — ${site.name}`} description={description}>
+  <div class="page case-study">
+    <article class="prose">
+      <p class="eyebrow"><a href="/projects">~/projects</a> / {date.getFullYear()}</p>
+      <h1>{title}</h1>
+      <p class="hero-copy">{description}</p>
+      <Divider />
+      <Content />
+    </article>
+
+    <aside class="case-side" aria-label="Project details">
+      <dl>
+        <dt>status</dt>
+        <dd><Tag status={status} /></dd>
+        {role && (<><dt>role</dt><dd>{role}</dd></>)}
+        {stack.length > 0 && (
+          <>
+            <dt>stack</dt>
+            <dd>
+              <ul>{stack.map((item) => <li>{item}</li>)}</ul>
+            </dd>
+          </>
+        )}
+        {url && (<><dt>live</dt><dd><a href={url} target="_blank" rel="noreferrer">visit site →</a></dd></>)}
+        {repo && (<><dt>code</dt><dd><a href={repo} target="_blank" rel="noreferrer">repository →</a></dd></>)}
+      </dl>
+    </aside>
+  </div>
 </Base>

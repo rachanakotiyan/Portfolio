@@ -8,8 +8,12 @@ const projects = defineCollection({
     title: z.string(),
     description: z.string(),
     date: z.coerce.date(),
-    status: z.enum(["live", "archived"]).default("live"),
+    status: z.enum(["live", "wip", "archived"]).default("live"),
+    featured: z.boolean().default(false),
+    role: z.string().optional(),
+    stack: z.array(z.string()).default([]),
     url: z.url().optional(),
+    repo: z.url().optional(),
     tags: z.array(z.string()).default([])
   })
 });

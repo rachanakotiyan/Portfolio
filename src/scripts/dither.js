@@ -26,12 +26,14 @@ function renderDither(canvas, image) {
 
   const pixels = sourceContext.getImageData(0, 0, width, height).data;
   const cell = Math.max(3, Math.round(width / 150));
-  context.fillStyle = "#23231f";
+  // Dark theme: draw lilac dots on the dark canvas. Brighter pixels get bigger dots.
+  const lilac = getComputedStyle(document.documentElement).getPropertyValue("--lilac").trim() || "#b79cff";
+  context.fillStyle = lilac;
   for (let y = 0; y < height; y += cell) {
     for (let x = 0; x < width; x += cell) {
       const offset = (y * width + x) * 4;
       const luminance = (pixels[offset] * 0.299 + pixels[offset + 1] * 0.587 + pixels[offset + 2] * 0.114) / 255;
-      const radius = (1 - luminance) * cell * 0.48;
+      const radius = luminance * cell * 0.48;
       if (radius < 0.35) continue;
       context.beginPath();
       context.arc(x + cell / 2, y + cell / 2, radius, 0, Math.PI * 2);

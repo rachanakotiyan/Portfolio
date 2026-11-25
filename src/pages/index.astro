@@ -7,7 +7,10 @@ import ProjectRow from "../components/ProjectRow.astro";
 import { getCollection } from "astro:content";
 import { site } from "../data/site";
 
-const projects = (await getCollection("projects")).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf()).slice(0, 3);
+const all = (await getCollection("projects")).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+// Show projects marked `featured: true`; fall back to the latest three.
+const featured = all.filter((project) => project.data.featured);
+const projects = (featured.length ? featured : all).slice(0, 3);
 ---
 
 <Base title={`${site.name} — ${site.role}`} description={site.tagline}>
@@ -19,7 +22,9 @@ const projects = (await getCollection("projects")).sort((a, b) => b.data.date.va
   </section>
   <Divider label="Selected work" />
   <section aria-label="Selected projects">
-    {projects.map((project) => <ProjectRow project={project} href={`/projects/${project.id}`} />)}
+    <div class="cards">
+      {projects.map((project) => <ProjectRow project={project} href={`/projects/${project.id}`} />)}
+    </div>
     <p><a href="/projects">All projects →</a></p>
   </section>
 </Base>

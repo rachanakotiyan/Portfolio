@@ -1,14 +1,16 @@
 ---
 import Base from "./Base.astro";
+import Divider from "../components/Divider.astro";
+import { site } from "../data/site";
 const { title, description, date } = Astro.props;
 ---
 
-<Base title={`${title} — Portfolio`} description={description}>
+<Base title={`${title} — ${site.name}`} description={description}>
   <article class="page prose">
     <p class="eyebrow"><a href="/writing">~/writing</a>{date && ` / ${date.toLocaleDateString("en", { dateStyle: "long" })}`}</p>
     <h1>{title}</h1>
     <p class="hero-copy">{description}</p>
-    <div class="divider" aria-hidden="true">{"=".repeat(80)}</div>
+    <Divider />
     <slot />
   </article>
 </Base>

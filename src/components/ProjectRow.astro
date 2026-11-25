@@ -8,14 +8,20 @@ interface Props {
 }
 
 const { project, href } = Astro.props;
+const { title, description, status, stack, tags, date } = project.data;
+const labels = stack.length ? stack : tags;
 ---
 
-<article class="project-row">
-  <h2><a href={href}>{project.data.title}</a></h2>
-  <p>{project.data.description}</p>
-  <div class="project-meta">
-    <Tag status={project.data.status} />
-    {project.data.tags.map((tag) => <Tag label={tag} />)}
-    <span class="meta">{project.data.date.getFullYear()}</span>
+<article class="card">
+  <span class="corner tl" aria-hidden="true">+</span>
+  <span class="corner tr" aria-hidden="true">+</span>
+  <span class="corner bl" aria-hidden="true">+</span>
+  <span class="corner br" aria-hidden="true">+</span>
+  <h2><a href={href}>{title}</a></h2>
+  <p>{description}</p>
+  <div class="card-meta">
+    <Tag status={status} />
+    {labels.map((label) => <Tag label={label} />)}
+    <span class="meta">{date.getFullYear()}</span>
   </div>
 </article>

@@ -1,13 +1,28 @@
 :root {
-  color-scheme: light;
-  --paper: #f2efe8;
-  --paper-dark: #e7e2d8;
-  --ink: #23231f;
-  --muted: #77766d;
-  --line: #c9c5bb;
-  --accent: #c34d32;
-  --mono: "IBM Plex Mono", "SFMono-Regular", Consolas, monospace;
-  --serif: Georgia, "Times New Roman", serif;
+  color-scheme: dark;
+
+  /* surfaces */
+  --bg: #0a0a0f;
+  --surface: #101018;
+  --line: #26262f;
+
+  /* text */
+  --text: #e8e8ec;
+  --muted: #8a8a98; /* 5.7:1 on --bg, passes AA */
+
+  /* accents: lilac is the main one, indigo is the deeper tint from the dither reference */
+  --lilac: #b79cff;
+  --indigo: #5b5fd6;
+  --glow: 0 0 14px rgb(183 156 255 / 0.55);
+
+  /* the pinch of red: use ONLY for the passion motif */
+  --spark: #ff4d6d;
+
+  /* type */
+  --mono: "JetBrains Mono Variable", "JetBrains Mono", "SFMono-Regular", Consolas, monospace;
+
+  /* layout */
   --space: clamp(1.25rem, 4vw, 4rem);
   --content: 72rem;
+  --measure: 70ch;
 }

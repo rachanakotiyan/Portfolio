@@ -14,6 +14,8 @@ const projects = (await getCollection("projects")).sort((a, b) => b.data.date.va
       <h1>A directory of things.</h1>
       <p>Selected projects, experiments, and collaborations.</p>
     </div>
-    {projects.map((project) => <ProjectRow project={project} href={`/projects/${project.id}`} />)}
+    <div class="cards">
+      {projects.map((project) => <ProjectRow project={project} href={`/projects/${project.id}`} />)}
+    </div>
   </section>
 </Base>
