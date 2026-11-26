@@ -16,7 +16,6 @@ const CURSOR_RADIUS = 110;   // px ripple radius
 const BALL_RADIUS   = 7;     // mirrorball radius in character units
 const MOTIF_MIN_MS  = 20000; // min ms between motif appearances
 const MOTIF_MAX_MS  = 40000; // max ms between motif appearances
-const FPS_CAP       = 60;    // normal fps target
 const FPS_HEAVY_CAP = 30;    // fps cap when falling behind
 const FRAME_BUDGET  = 1000 / FPS_HEAVY_CAP;
 
@@ -51,7 +50,6 @@ export const MOTIFS = {
 
 // ─── Helpers ─────────────────────────────────────────────────────────────────
 const clamp = (v, lo, hi) => Math.max(lo, Math.min(hi, v));
-const lerp  = (a, b, t)   => a + (b - a) * t;
 
 /** Read a CSS variable from :root */
 function cssVar(name) {
@@ -126,10 +124,9 @@ export function initAsciiField(canvas, opts = {}) {
   const staticMode = prefersReduced || isMobile;
 
   // ── Colours (read from CSS vars once; re-read on resize for safety) ─────
-  let COL_LILAC, COL_SPARK;
+  let COL_LILAC;
   function readColors() {
     COL_LILAC = cssVar("--lilac");
-    COL_SPARK = cssVar("--spark");
   }
   readColors();
 
