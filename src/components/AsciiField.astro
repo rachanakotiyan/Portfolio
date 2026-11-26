@@ -1,0 +1,45 @@
+---
+/**
+ * AsciiField.astro
+ * Props:
+ *   mirrorball  — boolean. Show the mirrorball (home hero). Default true.
+ *   dimmed      — boolean. Quieter field for Lab page. Default false.
+ *   opacityScale— number 0–1. Multiplier on all alphas. Default 1.
+ *   class       — forwarded to the wrapper.
+ */
+interface Props {
+  mirrorball?:   boolean;
+  dimmed?:       boolean;
+  opacityScale?: number;
+  class?:        string;
+}
+
+const {
+  mirrorball   = true,
+  dimmed       = false,
+  opacityScale = 1,
+  class: klass = "",
+} = Astro.props;
+---
+
+<div class={`ascii-field-wrap ${klass}`}>
+  <canvas
+    class="ascii-field-canvas"
+    aria-hidden="true"
+    data-ascii-mirrorball={mirrorball ? "1" : "0"}
+    data-ascii-dimmed={dimmed ? "1" : "0"}
+    data-ascii-opacity={opacityScale}
+  ></canvas>
+</div>
+
+<script>
+  import { initAsciiField } from "../scripts/asciiField.js";
+
+  document.querySelectorAll<HTMLCanvasElement>(".ascii-field-canvas").forEach((canvas) => {
+    initAsciiField(canvas, {
+      mirrorball:   canvas.dataset.asciiMirrorball === "1",
+      dimmed:       canvas.dataset.asciiDimmed     === "1",
+      opacityScale: parseFloat(canvas.dataset.asciiOpacity ?? "1"),
+    });
+  });
+</script>

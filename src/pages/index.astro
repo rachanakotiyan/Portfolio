@@ -1,7 +1,7 @@
 ---
 import Base from "../layouts/Base.astro";
 import Divider from "../components/Divider.astro";
-import DitherCanvas from "../components/DitherCanvas.astro";
+import AsciiField from "../components/AsciiField.astro";
 import TypedText from "../components/TypedText.astro";
 import ProjectRow from "../components/ProjectRow.astro";
 import { getCollection } from "astro:content";
@@ -13,14 +13,36 @@ const featured = all.filter((project) => project.data.featured);
 const projects = (featured.length ? featured : all).slice(0, 3);
 ---
 
-<Base title={`${site.name} — ${site.role}`} description={site.tagline}>
-  <section class="hero">
-    <p class="eyebrow">{site.location} / available for select projects</p>
-    <h1>{site.name}<br /><span class="hero-copy"><TypedText text={site.tagline} /></span></h1>
-    <DitherCanvas />
-    <p><a href="/projects">Explore selected work ↓</a></p>
+<Base title={`${site.name} – ${site.role}`} description={site.tagline}>
+  <section class="hero" aria-label="Hero">
+    <!-- The ASCII field canvas is behind the text, aria-hidden -->
+    <AsciiField mirrorball dimmed={false} opacityScale={1} class="hero-field" />
+
+    <!-- Hero text layer: staggered fragments on large screens -->
+    <div class="hero-text">
+      <p class="eyebrow hero-eyebrow">
+        <span class="marker" aria-hidden="true">□</span>
+        {site.location} / available for select projects
+      </p>
+
+      <h1 class="hero-name">
+        <span class="marker" aria-hidden="true">□</span>
+        {site.name}
+      </h1>
+
+      <p class="hero-tagline">
+        <span class="marker" aria-hidden="true">□</span>
+        <TypedText text={site.tagline} />
+      </p>
+
+      <p class="hero-cta">
+        <a href="/projects">Explore selected work ↓</a>
+      </p>
+    </div>
   </section>
+
   <Divider label="Selected work" />
+
   <section aria-label="Selected projects">
     <div class="cards">
       {projects.map((project) => <ProjectRow project={project} href={`/projects/${project.id}`} />)}
