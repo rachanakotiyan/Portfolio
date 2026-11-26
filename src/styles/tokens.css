@@ -1,8 +1,9 @@
 :root {
   color-scheme: dark;
 
-  /* surfaces */
+  /* surfaces — raven plumage: ink black fading to deep blue-black */
   --bg: #0a0a0f;
+  --bg-deep: #0b0e18;
   --surface: #101018;
   --line: #26262f;
 
@@ -10,19 +11,41 @@
   --text: #e8e8ec;
   --muted: #8a8a98; /* 5.7:1 on --bg, passes AA */
 
-  /* accents: lilac is the main one, indigo is the deeper tint from the dither reference */
+  /* accents */
   --lilac: #b79cff;
   --indigo: #5b5fd6;
   --glow: 0 0 14px rgb(183 156 255 / 0.55);
 
-  /* the pinch of red: use ONLY for the passion motif */
-  --spark: #ff4d6d;
+  /* motif palette (all >= ~3:1 contrast against --bg at rest) */
+  --mirrorball-main: #e8e8ec;
+  --mirrorball-glint: #a9d6ff;
+
+  --koi-pearl: #f1ede6;
+  --koi-lilac: #b79cff;
+  --koi-outline: #d8ccff;
+  --koi-vermilion: #ff5a4a; /* the ONLY red on the whole site */
+  --koi-bamboo: #6fb7b0;
+
+  --sun-gold: #f2d98d;
+
+  --star-lilac: #cdbcff;
+  --star-indigo: #5b5fd6;
+
+  --notes-teal: #7fd4d0;
+  --notes-staff: #487e7c;
+  --notes-star: #fff6dc;
+
+  --galaxy-core: #ffffff;
+  --galaxy-outer: #8e9bff;
+
+  --wings-silver: #e8e8ec;
+  --sparkle-silver: #e8e8ec;
 
   /* type */
   --mono: "JetBrains Mono Variable", "JetBrains Mono", "SFMono-Regular", Consolas, monospace;
 
   /* layout */
   --space: clamp(1.25rem, 4vw, 4rem);
-  --content: 72rem;
+  --content: 78rem;
   --measure: 70ch;
 }

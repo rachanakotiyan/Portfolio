@@ -1,43 +1,75 @@
 ---
 import Base from "../layouts/Base.astro";
 import Divider from "../components/Divider.astro";
-import AsciiField from "../components/AsciiField.astro";
-import TypedText from "../components/TypedText.astro";
+import Opening from "../components/Opening.astro";
+import MotifCanvas from "../components/MotifCanvas.astro";
 import ProjectRow from "../components/ProjectRow.astro";
 import { getCollection } from "astro:content";
 import { site } from "../data/site";
 
 const all = (await getCollection("projects")).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
-// Show projects marked `featured: true`; fall back to the latest three.
 const featured = all.filter((project) => project.data.featured);
 const projects = (featured.length ? featured : all).slice(0, 3);
+
+const taglineFragments = [
+  { text: "making", offset: "frag-a" },
+  { text: "useful things", offset: "frag-b" },
+  { text: "for curious people.", offset: "frag-c" },
+];
 ---
 
-<Base title={`${site.name} – ${site.role}`} description={site.tagline}>
-  <section class="hero" aria-label="Hero">
-    <!-- The ASCII field canvas is behind the text, aria-hidden -->
-    <AsciiField mirrorball dimmed={false} opacityScale={1} class="hero-field" />
+<Base title={`${site.name} — ${site.role}`} description={site.tagline}>
+  <Opening />
 
-    <!-- Hero text layer: staggered fragments on large screens -->
-    <div class="hero-text">
-      <p class="eyebrow hero-eyebrow">
-        <span class="marker" aria-hidden="true">□</span>
-        {site.location} / available for select projects
-      </p>
-
-      <h1 class="hero-name">
-        <span class="marker" aria-hidden="true">□</span>
-        {site.name}
-      </h1>
-
-      <p class="hero-tagline">
-        <span class="marker" aria-hidden="true">□</span>
-        <TypedText text={site.tagline} />
-      </p>
-
+  <section class="poster-hero" aria-label="Introduction">
+    <div class="zone-identity hero-text-zone">
+      <p class="eyebrow">{site.location} / available for select projects</p>
+      <h1 class="poster-name">{site.name}</h1>
+      <p class="poster-role">{site.role}</p>
       <p class="hero-cta">
         <a href="/projects">Explore selected work ↓</a>
       </p>
+    </div>
+
+    <div class="zone-tagline hero-text-zone" aria-label={site.tagline}>
+      {taglineFragments.map((frag) => (
+        <span class={`tagline-frag ${frag.offset}`}>
+          <span class="frag-text">{frag.text}</span>
+          <span class="frag-marker" aria-hidden="true">□</span>
+        </span>
+      ))}
+    </div>
+
+    <div class="zone-mirrorball">
+      <MotifCanvas motif="mirrorball" opacity={0.95} parallax={6} />
+    </div>
+
+    <div class="zone-sun">
+      <MotifCanvas motif="sun" opacity={0.85} parallax={4} />
+    </div>
+
+    <div class="zone-koi">
+      <MotifCanvas motif="koi" opacity={0.95} parallax={5} />
+    </div>
+
+    <div class="zone-galaxy">
+      <MotifCanvas motif="galaxy" opacity={0.78} parallax={3} />
+    </div>
+
+    <div class="zone-star">
+      <MotifCanvas motif="star" opacity={0.85} parallax={4} />
+    </div>
+
+    <div class="zone-notes">
+      <MotifCanvas motif="notes" opacity={0.88} parallax={4} />
+    </div>
+
+    <div class="zone-wings">
+      <MotifCanvas motif="wings" opacity={0.85} parallax={3} />
+    </div>
+
+    <div class="zone-sparkles">
+      <MotifCanvas motif="sparkles" opacity={0.9} parallax={2} />
     </div>
   </section>
 

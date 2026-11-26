@@ -1,14 +1,26 @@
 ---
 import Base from "../layouts/Base.astro";
+import MotifCanvas from "../components/MotifCanvas.astro";
 import { site } from "../data/site";
 ---
 
 <Base title={`About — ${site.name}`}>
-  <article class="page">
-    <p class="eyebrow">~/about</p>
-    <h1>A little about me.</h1>
-    <p class="hero-copy">I’m a designer and developer interested in the useful, the playful, and the things that make daily life a little better.</p>
-    <div class="divider" aria-hidden="true">{"=".repeat(80)}</div>
+  <article class="page about-page">
+    <div class="about-header">
+      <div class="about-heading-group">
+        <p class="eyebrow">~/about</p>
+        <h1>A little about me.</h1>
+        <p class="hero-copy">I’m a designer and developer interested in the useful, the playful, and the things that make daily life a little better.</p>
+      </div>
+      <div class="about-flourish">
+        <MotifCanvas motif="sparkles" opacity={0.92} parallax={3} />
+      </div>
+    </div>
+
+    <!-- PLACEHOLDER: About-page character slot (do not build yet) -->
+    <div class="about-character-slot" data-character-slot aria-hidden="true"></div>
+
+    <div class="divider" aria-hidden="true">{"─".repeat(80)}</div>
     <h2>How I work</h2>
     <p>I like clear questions, thoughtful details, and making things that last. This is a place to share a few experiments and projects along the way.</p>
     <p><a href="/resume.pdf">View résumé →</a></p>

@@ -22,10 +22,34 @@
   text-decoration: none;
 }
 
+.header-right {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem 1.4rem;
+}
+
 .nav-links {
   display: flex;
   flex-wrap: wrap;
   gap: 0.4rem 1.25rem;
+}
+
+.sound-toggle {
+  padding: 0.15rem 0.5rem;
+  border: 1px solid var(--line);
+  background: transparent;
+  color: var(--muted);
+  font-size: 0.72rem;
+  cursor: pointer;
+  transition: color 0.2s, border-color 0.2s;
+}
+
+.sound-toggle:hover,
+.sound-toggle:focus-visible,
+.sound-toggle[aria-pressed="true"] {
+  border-color: var(--lilac);
+  color: var(--lilac);
 }
 
 .nav-links a {
@@ -141,124 +165,212 @@
   gap: 0.1rem 0.5rem;
 }
 
-/* ---------- ASCII field wrapper ---------- */
+/* ---------- opening overlay ---------- */
 
-.ascii-field-wrap {
-  position: absolute;
+.opening-overlay {
+  position: fixed;
   inset: 0;
-  overflow: hidden;
-  pointer-events: none; /* text stays interactive */
-  z-index: 0;
+  z-index: 50;
+  display: grid;
+  place-items: center;
+  padding: var(--space);
+  background: var(--bg);
+  opacity: 0;
+  transition: opacity 0.6s ease;
 }
 
-.ascii-field-canvas {
+.opening-overlay.is-visible {
+  opacity: 1;
+}
+
+.opening-overlay.is-fading {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.opening-inner {
+  display: grid;
+  justify-items: start;
+  gap: 1.25rem;
+  max-width: 34ch;
+}
+
+.opening-star {
+  color: var(--notes-star);
+  font-size: 1rem;
+  animation: star-pulse 2.4s ease-in-out infinite;
+}
+
+@keyframes star-pulse {
+  0%, 100% { opacity: 0.35; }
+  50% { opacity: 1; }
+}
+
+.opening-copy {
+  display: grid;
+  gap: 0.35rem;
+  margin: 0;
+  color: var(--text);
+  font-size: 0.85rem;
+  line-height: 1.75;
+}
+
+.opening-line {
+  display: block;
+}
+
+.opening-skip {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--muted);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: underline;
+  text-underline-offset: 0.3em;
+  cursor: pointer;
+}
+
+.opening-skip:hover,
+.opening-skip:focus-visible {
+  color: var(--lilac);
+}
+
+/* ---------- motif canvas boxes ---------- */
+
+.motif-box {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 8rem;
+}
+
+.motif-canvas {
   display: block;
   width: 100%;
   height: 100%;
 }
 
-/* ---------- hero ---------- */
+/* ---------- poster home hero (non-overlapping named grid) ---------- */
 
-.hero {
-  position: relative;
+.poster-hero {
   display: grid;
-  min-height: min(72vh, 48rem);
-  align-content: center;
-  padding: 4rem 0;
-  overflow: hidden;
-}
-
-/* The ascii-field-wrap inside hero fills the whole section */
-.hero .ascii-field-wrap,
-.hero-field {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-}
-
-/* Text layer sits above the canvas */
-.hero-text {
-  position: relative;
-  z-index: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-
-.hero-eyebrow {
-  display: flex;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-areas:
+    "identity"
+    "mirrorball"
+    "tagline"
+    "koi";
+  gap: 4rem;
+  padding: clamp(2.5rem, 6vw, 5rem) 0;
   align-items: center;
-  gap: 0.5rem;
 }
 
-.hero-name {
-  max-width: 14ch;
-  margin: 0.5rem 0 0.75rem;
-  display: flex;
-  align-items: baseline;
-  gap: 0.4rem;
+.hero-text-zone {
+  position: relative;
+  z-index: 2;
 }
 
-.hero-tagline {
-  max-width: 34rem;
+.zone-identity { grid-area: identity; }
+.zone-tagline  { grid-area: tagline; display: flex; flex-direction: column; gap: 1.5rem; }
+.zone-mirrorball { grid-area: mirrorball; height: 15rem; }
+.zone-koi      { grid-area: koi; height: 14rem; }
+.zone-sun      { grid-area: sun; display: none; height: 11rem; }
+.zone-galaxy   { grid-area: galaxy; display: none; height: 13rem; }
+.zone-star     { grid-area: star; display: none; height: 10rem; }
+.zone-notes    { grid-area: notes; display: none; height: 10rem; }
+.zone-wings    { grid-area: wings; display: none; height: 9rem; }
+.zone-sparkles { grid-area: sparkles; display: none; height: 7rem; }
+
+.poster-name {
+  margin: 0.5rem 0 0.4rem;
+}
+
+.poster-role {
+  margin: 0;
   color: var(--muted);
-  display: flex;
-  align-items: baseline;
-  gap: 0.4rem;
-  margin-bottom: 0;
+  font-size: 0.95rem;
 }
 
 .hero-cta {
   margin-top: 1.5rem;
+  margin-bottom: 0;
 }
 
-/* □ markers — lilac, don't scale with h1 */
-.hero .marker {
+.tagline-frag {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.35rem;
+}
+
+.frag-text {
+  font-size: 0.76rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text);
+}
+
+.frag-marker {
   color: var(--lilac);
-  font-size: 0.8rem;
-  flex-shrink: 0;
-  user-select: none;
+  font-size: 0.72rem;
+  line-height: 1;
 }
 
-/* Large-screen: stagger fragments via left offsets */
-@media (min-width: 40rem) {
-  .hero-text {
-    gap: 0.75rem;
+@media (min-width: 48rem) {
+  .poster-hero {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-areas:
+      "identity mirrorball"
+      "koi tagline"
+      "notes galaxy";
+    gap: 4rem;
   }
 
-  .hero-eyebrow {
-    padding-left: 0;
-  }
+  .zone-mirrorball { height: 17rem; }
+  .zone-koi { height: 15rem; }
+  .zone-notes { display: block; height: 11rem; }
+  .zone-galaxy { display: block; height: 13rem; }
 
-  .hero-name {
-    padding-left: 0;
-  }
-
-  .hero-tagline {
-    padding-left: 2rem;
-  }
+  .frag-b { align-self: center; }
+  .frag-c { align-self: flex-end; }
 }
 
-/* keep the old .hero-copy class working in case it's used elsewhere */
-.hero-copy {
-  max-width: 34rem;
-  color: var(--muted);
+@media (min-width: 64rem) {
+  .poster-hero {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-template-areas:
+      "sun sparkles mirrorball mirrorball"
+      "identity identity mirrorball mirrorball"
+      "koi koi tagline tagline"
+      "star notes notes galaxy"
+      ". wings wings .";
+    gap: 4rem;
+  }
+
+  .zone-sun { display: block; height: 10rem; }
+  .zone-sparkles { display: block; height: 8rem; }
+  .zone-mirrorball { height: 22rem; }
+  .zone-koi { height: 16rem; }
+  .zone-star { display: block; height: 11rem; }
+  .zone-notes { display: block; height: 11rem; }
+  .zone-galaxy { display: block; height: 13rem; }
+  .zone-wings { display: block; height: 9rem; }
 }
 
-/* ---------- lab intro wrapper (ascii bg behind intro only) ---------- */
+/* ---------- lab intro wrapper (dim galaxy behind intro) ---------- */
 
 .lab-intro-wrap {
   position: relative;
   overflow: hidden;
-  margin-bottom: 2rem;
-  min-height: 14rem;
+  margin-bottom: 3rem;
+  min-height: 15rem;
   display: flex;
   align-items: center;
 }
 
-.lab-intro-wrap .ascii-field-wrap,
-.lab-field {
+.lab-galaxy-bg {
   position: absolute;
   inset: 0;
   z-index: 0;
@@ -267,8 +379,53 @@
 
 .lab-intro-text {
   position: relative;
-  z-index: 1;
+  z-index: 2;
   margin-bottom: 0;
+}
+
+/* ---------- about / writing / 404 motif flourishes ---------- */
+
+.about-header {
+  display: grid;
+  gap: 2.5rem;
+  align-items: center;
+}
+
+.about-flourish {
+  height: 7rem;
+}
+
+.about-character-slot {
+  min-height: 1rem;
+}
+
+@media (min-width: 48rem) {
+  .about-header {
+    grid-template-columns: minmax(0, 1fr) 12rem;
+    gap: 4rem;
+  }
+}
+
+.writing-divider-motif {
+  height: 7rem;
+  max-width: var(--measure);
+  margin: 2rem 0;
+}
+
+.not-found-page {
+  display: grid;
+  gap: 4rem;
+  align-items: center;
+}
+
+.not-found-motif {
+  height: 14rem;
+}
+
+@media (min-width: 48rem) {
+  .not-found-page {
+    grid-template-columns: minmax(0, 1fr) 16rem;
+  }
 }
 
 /* ---------- writing + prose ---------- */

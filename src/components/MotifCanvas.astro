@@ -1,0 +1,35 @@
+---
+interface Props {
+  motif: "mirrorball" | "koi" | "sun" | "star" | "notes" | "galaxy" | "wings" | "sparkles";
+  opacity?: number;
+  parallax?: number;
+  class?: string;
+}
+
+const {
+  motif,
+  opacity = 1,
+  parallax = 5,
+  class: klass = "",
+} = Astro.props;
+---
+
+<div class={`motif-box motif-box--${motif} ${klass}`}>
+  <canvas
+    class="motif-canvas"
+    aria-hidden="true"
+    data-motif={motif}
+    data-opacity={opacity}
+    data-parallax={parallax}
+  ></canvas>
+</div>
+
+<script>
+  import { initMotifCanvas } from "../scripts/motifCanvas.js";
+
+  document.querySelectorAll<HTMLCanvasElement>(".motif-canvas").forEach((canvas) => {
+    if (canvas.dataset.motifBound === "1") return;
+    canvas.dataset.motifBound = "1";
+    initMotifCanvas(canvas);
+  });
+</script>

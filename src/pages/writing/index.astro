@@ -1,5 +1,6 @@
 ---
 import Base from "../../layouts/Base.astro";
+import MotifCanvas from "../../components/MotifCanvas.astro";
 import { getCollection } from "astro:content";
 import { site } from "../../data/site";
 
@@ -13,6 +14,11 @@ const posts = (await getCollection("writing")).sort((a, b) => b.data.date.valueO
       <h1>Words in progress.</h1>
       <p>Notes, observations, and occasional longer thoughts.</p>
     </div>
+
+    <div class="writing-divider-motif">
+      <MotifCanvas motif="notes" opacity={0.85} parallax={2} />
+    </div>
+
     <ul class="post-list">
       {posts.map((post) => (
         <li>

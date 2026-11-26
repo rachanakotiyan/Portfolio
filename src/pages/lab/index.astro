@@ -1,6 +1,6 @@
 ---
 import Base from "../../layouts/Base.astro";
-import AsciiField from "../../components/AsciiField.astro";
+import MotifCanvas from "../../components/MotifCanvas.astro";
 import NowPlaying from "../../components/lab/NowPlaying.astro";
 import Guestbook from "../../components/lab/Guestbook.astro";
 import Updates from "../../components/lab/Updates.astro";
@@ -9,9 +9,10 @@ import { site } from "../../data/site";
 
 <Base title={`Lab — ${site.name}`}>
   <section class="page lab-page">
-    <!-- Quiet ASCII field behind the intro only -->
     <div class="lab-intro-wrap">
-      <AsciiField mirrorball={false} dimmed opacityScale={0.38} class="lab-field" />
+      <div class="lab-galaxy-bg" aria-hidden="true">
+        <MotifCanvas motif="galaxy" opacity={0.38} parallax={3} />
+      </div>
       <div class="page-intro lab-intro-text">
         <p class="eyebrow">~/lab</p>
         <h1>The back room.</h1>

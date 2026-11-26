@@ -1,0 +1,33 @@
+---
+import { opening } from "../data/opening";
+---
+
+<div
+  class="opening-overlay"
+  role="dialog"
+  aria-label="Welcome greeting"
+  data-opening-overlay
+  data-duration={opening.durationMs}
+>
+  <div class="opening-inner">
+    <span class="opening-star" aria-hidden="true">✦</span>
+    <p class="opening-copy">
+      {opening.lines.map((line) => (
+        <span class="opening-line">{line}</span>
+      ))}
+    </p>
+    <button type="button" class="opening-skip" data-opening-skip>
+      {opening.skipLabel}
+    </button>
+  </div>
+</div>
+
+<script>
+  import { initOpening } from "../scripts/opening.js";
+
+  const overlay = document.querySelector<HTMLElement>("[data-opening-overlay]");
+  if (overlay) {
+    const dur = parseInt(overlay.dataset.duration || "3200", 10);
+    initOpening(overlay, dur);
+  }
+</script>
